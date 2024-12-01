@@ -1,0 +1,17 @@
+@startuml
+actor User
+participant "UserInterface" as UI
+participant "PaymentController" as PC
+participant "Payment" as P
+
+User -[#red]-> UI : 登录
+UI -[#red]-> PC : 发起支付
+PC -[#red]-> P : 创建支付
+P -[#red]-> PC : 支付创建成功
+PC -[#red]-> UI : 显示支付确认
+User -[#red]-> UI : 选择支付方式
+UI -[#red]-> PC : 处理支付
+PC -[#red]-> P : 验证支付状态
+P -[#red]-> PC : 支付验证通过
+PC -[#red]-> UI : 显示支付成功
+@enduml

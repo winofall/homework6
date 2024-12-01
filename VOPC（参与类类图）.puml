@@ -1,0 +1,34 @@
+@startuml
+class User {
+    +userId  // 用户ID
+    +name  // 用户名
+    +phoneNumber  // 手机号
+    +email  // 邮箱
+    +creditLevel  // 用户信用等级
+}
+
+class Appointment {
+    +appointmentId  // 预约ID
+    +appointmentDate  // 预约日期
+    +doctor  // 预约医生
+    +user  // 预约用户
+    +status  // 预约状态
+}
+
+class Payment {
+    +paymentId  // 支付ID
+    +amount  // 支付金额
+    +paymentStatus  // 支付状态
+}
+
+class Doctor {
+    +doctorId  // 医生ID
+    +name  // 医生姓名
+    +specialization  // 专科
+    +availableAppointments  // 可用预约
+}
+
+User "1" -- "0..*" Appointment : 预约
+Doctor "1" -- "0..*" Appointment : 安排
+Appointment "1" -- "1" Payment : 关联支付
+@enduml

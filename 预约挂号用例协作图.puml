@@ -1,0 +1,23 @@
+@startuml
+actor User
+participant "UserInterface" as UI
+participant "AppointmentController" as AC
+participant "Doctor" as D
+participant "Hospital" as H
+
+User -[#red]-> UI : 登录
+UI -[#red]-> AC : 创建预约
+AC -[#red]-> H : 查询可用医院
+H -[#red]-> AC : 返回医院列表
+AC -[#red]-> UI : 显示医院列表
+User -[#red]-> UI : 选择医院、科室和医生
+UI -[#red]-> AC : 检查医生可用性
+AC -[#red]-> D : 检查可用预约
+D -[#red]-> AC : 返回可用情况
+AC -[#red]-> UI : 显示可用预约
+User -[#red]-> UI : 选择预约时间
+UI -[#red]-> AC : 确认预约
+AC -[#red]-> D : 预约医生
+D -[#red]-> AC : 预约成功
+AC -[#red]-> UI : 显示预约确认
+@enduml

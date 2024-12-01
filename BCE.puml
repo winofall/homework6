@@ -1,0 +1,70 @@
+@startuml
+package "边界类" {
+    class UserInterface {
+        +login()  // 用户登录
+        +register()  // 用户注册
+        +searchHospital()  // 查询医院
+        +makeAppointment()  // 创建预约
+    }
+    class ThirdPartyLogin {
+        +loginWithWechat()  // 微信第三方登录
+    }
+}
+
+package "控制类" {
+    class AppointmentController {
+        +createAppointment()  // 创建预约
+        +cancelAppointment()  // 取消预约
+        +checkAvailability()  // 检查可用性
+    }
+    class PaymentController {
+        +makePayment()  // 支付挂号费
+        +refundPayment()  // 退款
+        +checkPaymentStatus()  // 检查支付状态
+    }
+    class NotificationController {
+        +sendReminder()  // 发送提醒
+        +sendCancellationReminder()  // 发送取消提醒
+    }
+}
+
+package "实体类" {
+    class User {
+        +userId  // 用户ID
+        +name  // 用户名
+        +phoneNumber  // 手机号
+        +email  // 邮箱
+        +creditLevel  // 用户信用等级
+    }
+    class Doctor {
+        +doctorId  // 医生ID
+        +name  // 医生姓名
+        +specialization  // 专科
+        +availableAppointments  // 可用预约
+    }
+    class Appointment {
+        +appointmentId  // 预约ID
+        +appointmentDate  // 预约日期
+        +doctor  // 预约医生
+        +user  // 预约用户
+        +status  // 预约状态
+    }
+    class Payment {
+        +paymentId  // 支付ID
+        +amount  // 支付金额
+        +paymentStatus  // 支付状态
+    }
+    class Hospital {
+        +hospitalId  // 医院ID
+        +name  // 医院名称
+        +location  // 医院位置
+    }
+}
+
+UserInterface --> AppointmentController : 使用
+UserInterface --> ThirdPartyLogin : 使用
+AppointmentController --> Doctor : 安排
+AppointmentController --> User : 关联
+AppointmentController --> PaymentController : 触发支付
+NotificationController --> User : 发送通知
+@enduml
